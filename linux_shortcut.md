@@ -11,3 +11,6 @@
 * %s/aaa/bbb
 * /you 查找第一个you,n定位到下一个位置
 * scp abx.md root@ip:/addr
+* :set nu :set nonu 设置行号
+* u 正常模式下撤销上个编辑模式的动作
+* 正常模式下 数字+shift+g 跳转到对应的行

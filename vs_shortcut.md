@@ -6,8 +6,8 @@
 * 多处任意位置修改                               Alt + Click
 * Markdown预览切换                              Ctrl + Shift + V
 * 在鼠标拖动区域的每行行尾插入光标                 Shift + Alt + (drag mouse) 
-* 回到最后一次编辑处                              ctlr + k + q(改为ctrl+q)
+* 回到最后一次编辑处                              ctrl + k + q(改为ctrl+q)
 * 切换不同视图                                  ctrl + q 
 * 选中所有相同单词                              Ctrl + Shift + L
-
+k
 
