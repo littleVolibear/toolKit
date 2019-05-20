@@ -76,4 +76,12 @@ Alt+F1 查找代码所在位置
 Alt+1 快速打开或隐藏工程面板
 Ctrl+Alt+ left/right 返回至上次浏览的位置
 Alt+ left/right 切换代码视图
-Alt+ Up/Down 在方法间快速移动定位111
+Alt+ Up/Down 在方法间快速移动定位
+
+=================================
+f6 下一步
+f8 跳过断点
+alt+f8 计算某个值
+alt+f9 移动到光标处进行计算
+ctrl+shift+f8/右键 查看所有的断点,可以添加断点condition
+dropframe 重新开始调试
