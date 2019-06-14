@@ -70,7 +70,8 @@ Alt+F1 查找代码所在位置
 Ctrl+Alt+ left/right 返回至上次浏览的位置
 Alt+ left/right 切换代码视图
 Alt+ Up/Down 在方法间快速移动定位
-Ctrl+Shift+Up/Down 代码向上/下移动。
+Ctrl+Shift+Up/Down 代码向上/下移动
+ctrl+alt+M 抽取方法
  
 =================================
 Ctrl+H 显示类结构图
