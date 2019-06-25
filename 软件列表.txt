@@ -1,0 +1,22 @@
+1、pc 谷歌插件
+===============
+Just Black 
+Dark Reader
+===============
+Listen1
+Adblock Plus 
+Axure RP Extension for Chrome
+Google 翻译
+IDM Integration Module
+Infinity 新标签页
+JetBrains IDE Support
+LastPass: Free Password Manager
+Noisli
+Octotree
+OneTab
+Proxy SwitchyOmega
+Sourcegraph
+Tampermonkey
+Vimium
+Vue.js devtools
+=======================================

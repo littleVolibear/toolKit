@@ -62,7 +62,8 @@ Ctrl+P 方法参数提示
 Ctrl+Shift+Alt+N 查找类中的方法或变量
 Alt+Shift+C 对比最近修改的代码
 
-Ctrl+Alt+H打开方法调用结构    >>> 
+Ctrl+Alt+H打开方法调用结构
+ctrl+alt+shift+n:  查找方法-符号
 
 Ctrl+J  自动代码
 Ctrl+H 显示类结构图
