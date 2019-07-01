@@ -20,3 +20,6 @@ Tampermonkey
 Vimium
 Vue.js devtools
 =======================================
+pc软件:
+1、clover
+2、天若OCR

@@ -39,6 +39,7 @@ f11或者ctrl+f11:插入书签
 shift+f11:显示所有的书签
 ctrl+shift+-:折叠所有方法
 ctrl+shift++:扩展所有方法
+ctrl+shift+u:大小写转换
 
 
 
