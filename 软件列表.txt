@@ -23,3 +23,29 @@ Vue.js devtools
 pc软件:
 1、clover
 2、天若OCR
+3、ccleaner
+4、FastCopyInstall
+5、fiddler
+6、fish 冰点文库下载
+7、Geek
+8、火绒
+9、手心
+10、potplayer
+11、ShadowsocksR
+12、sumatra
+13、xftp/xshell/SecureCRTPortable
+14、Snipaste-1.16.2-x64
+15、seer
+16、erverthing/listary
+17、IDM
+18、flux
+19、ditto
+20、squirrel
+21、bandizip
+22、inpaint
+23、listen1_chrome_extension-master
+24、oCam Pre v475.0
+25、redismanager
+26、sourcetree
+27、sqldeveloper/sqlyog
+28、sublime
