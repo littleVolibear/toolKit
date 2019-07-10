@@ -34,11 +34,7 @@ pc软件:
 11、ShadowsocksR
 12、sumatra
 13、xftp/xshell/SecureCRTPortable
-14、Snipaste-1.16.2-x64
-15、seer
-16、erverthing/listary
-17、IDM
-18、flux
+14、Snipaste-1.16.2-x64 && FSCapture
 19、ditto
 20、squirrel
 21、bandizip
@@ -49,3 +45,4 @@ pc软件:
 26、sourcetree
 27、sqldeveloper/sqlyog
 28、sublime
+29、seer
