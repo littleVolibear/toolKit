@@ -7,16 +7,34 @@
 我们之前做数据统计都是Spark做计算处理，布到定时框架里面，然后定时计算写入数据库
 ================================================
 
+* /etc/sysconfig/network   修改主机名，起个别名
+
+* /etc/hosts 映射修改
+
+* /etc/sysconfig/network-scripts/ifcfg-eth0 修改ip地址
+
+* rm -rf 　/etc/udev/rules.d/70-persistent-net.rules 删除一块网卡
+
+* reboot
+
+   ---
+
+   
+
 * Web端查看SecondaryNameNode
-http://learn02:50090/status.html
+  http://learn02:50090/status.html
+
 * /etc/hosts		修改ip地址和主机名的映射关系
 		127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 		::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 		192.168.0.101 server1.itcast.cn
+	
 * /etc/sysconfig/network		修改主机名，起个别名
 		NETWORKING=yes
 		HOSTNAME=server1.itcast.cn
+	
 * /etc/udev/rules.d/70-persistent-net.rules   保留一块网卡
+
 * /etc/sysconfig/network-scripts/ifcfg-eth0 修改ip地址
 		BOOTPROTO=static
 		NAME=eth0
@@ -37,7 +55,7 @@ http://learn02:50090/status.html
 	chkconfig   查看所有服务器自启配置
 	chkconfig iptables off   关掉指定服务的自动启动
 	chkconfig iptables on   开启指定服务的自动启动
-
+	
 	chkconfig --list|grep sshd
 	chkconfig iptables --list
 	chkconfig --level 5 sshd off
@@ -51,19 +69,19 @@ http://learn02:50090/status.html
 
 		NETWORKING=yes
 		NETWORKING=yes
-
+	
 		HOSTNAME=est01
 		GATEWAY=192.168.184.2
 		nameserver 192.168.184.2
 		service network restart
-
+	
 	shutdown –h now 立该进行关机
 	shudown -h 1 "hello, 1 分钟后会关机了"
 	shutdown –r now 现在重新启动计算机
 	halt 关机，作用和上面一样.
 	reboot 现在重新启动计算机
 	sync 把内存的数据同步到磁盘
-
+	
 	logout 注销用户
 ==================================================
 
@@ -90,13 +108,13 @@ linux常用命令:
 		echo content > filename  (>重定向的作用)
 		echo content >> filename (追加文件)
 		vi filename
-
+	
 		cp src desc 若名称有改变，是复制并重命名
 	5、替换内容
 		:%s/content1/content2
 	6、查找内容
 		:/content   n查找下一个(N上一个)
-
+	
 	7、文件权限的操作
 		第一种权限修改方式：
 			d：标识节点类型（d：文件夹   -：文件  l:链接）
@@ -104,12 +122,12 @@ linux常用命令:
 			第一组rwx：  表示这个文件的拥有者对它的权限：可读可写可执行
 			第二组r-x：  表示这个文件的所属组对它的权限：可读，不可写，可执行
 			第三组r-x：  表示这个文件的其他用户（相对于上面两类用户）对它的权限：可读，不可写，可执行
-
+	
 			****修改文件权限
 			chmod g-rw haha.dat    表示将haha.dat对所属组的rw权限取消
 			chmod o-rw haha.dat 	表示将haha.dat对其他人的rw权限取消
 			chmod u+x haha.dat      表示将haha.dat对所属用户的权限增加x
-
+	
 		// 第二种给予权限方式:
 		****linux文件权限的描述格式解读
 		drwxr-xr-x      （也可以用二进制表示  111 101 101  -->  755）
@@ -119,7 +137,7 @@ linux常用命令:
 		保护文件无法删除，可以让它的父文件夹只读不可写权限
 		hdfs dfs -chmod -R 777 
 		hdfs dfs -chmod -R 755 /
-
+	
 	8、脚本写法
 		#!/bin/bash
 		while true
@@ -127,18 +145,18 @@ linux常用命令:
 		echo "i love you "
 		sleep 1
 		done
-
+	
 		secureCRT:-------不断写入文件
 			while true
 			> do
 			> echo 1111 >> acess.log
 			> sleep 1
 			> done
-
+	
 		#!/bin/bash
 		echo "js start"
 		ssh shizhan01 "source /etc/profile;xxx.sh start"
-
+	
 	9、用户管理
 		*****添加用户
 		useradd  angela
@@ -147,25 +165,25 @@ linux常用命令:
 		passwd angela  按提示输入密码即可
 		userdel userName 删除用户
 		userdel -r userName 删除用户包括用户的根目录
-
+	
 		**为用户配置sudo权限
 		用root编辑 vi /etc/sudoers
 		在文件的如下位置，为hadoop添加一行即可
 		root    ALL=(ALL)       ALL     
 		hadoop  ALL=(ALL)       ALL
-
+	
 		然后，hadoop用户就可以用sudo来执行系统级别的指令
 		[hadoop@shizhan ~]$ sudo useradd huangxiaoming
-
+	
 	10、系统管理操作
-
+	
 		mount ****  挂载外部存储设备到文件系统中
 		mkdir   /mnt/cdrom      创建一个目录，用来挂载
 		mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom/     将设备/dev/cdrom挂载到 挂载点 ：  /mnt/cdrom中
-
+	
 		*****umount
 		umount /mnt/cdrom
-
+	
 		开机挂载
 		/etc/fstab
 		新增:/dev/cdrom /mnt/cdrom iso9660 defaults 0 0
@@ -192,7 +210,7 @@ linux常用命令:
 	IPADDR=192.168.184.61
 	NETMASK=255.255.255.0
 	GATEWAY=192.168.184.2
-
+	
 	配置静态地址
 	然后：
 	rm -rf 　/etc/udev/rules.d/70-persistent-net.rules
@@ -208,7 +226,7 @@ linux常用命令:
 	tail -10  install.log   查看文件尾部的10行
 	tail -f install.log    小f跟踪文件的唯一inode号，就算文件改名后，还是跟踪原来这个inode表示的文件
 	tail -F install.log    大F按照文件名来跟踪
-
+	
 	head -10  install.log   查看文件头部的10行
 
 
@@ -218,10 +236,10 @@ linux常用命令:
 	service network start    启动指定服务
 	service network restart  重启指定服务
 	service --status-all  查看系统中所有的后台服务
-
+	
 	*****系统启动级别管理
 	vi  /etc/inittab
-
+	
 	# Default runlevel. The runlevels used are:
 	#   0 - halt (Do NOT set initdefault to this)
 	#   1 - Single user mode
@@ -246,7 +264,7 @@ linux常用命令:
 	压缩/解压文件
 		tar -cvf myfirsttarball.tar aaa/
 		tar -xvf myfirsttarball.tar
-
+	
 	打包压缩文件:	tar -zcvf newFileName dir/
 	拆包解压文件:	tar -zxvf xxx.tar.gz
 
@@ -266,13 +284,13 @@ linux常用命令:
 	export HADOOP_HOME=/home/hadoop/apps/hadoop-2.6.4
 	export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 	保存退出
-
+	
 	**然后重新加载环境变量
 	source /etc/profile
 
 
 	ln -s  /mnt/cdrom ./centos      //创建软连接指向/mnt/cdrom
-
+	
 	// 追加文件
 	cat >> file1 << EOF
 	CONTENT
@@ -425,13 +443,13 @@ FLUSH PRIVILEGES;
 	<value>com.mysql.jdbc.Driver</value>
 	<description>Driver class name for a JDBC metastore</description>
 	</property>
-
+	
 	<property>
 	<name>javax.jdo.option.ConnectionUserName</name>
 	<value>root</value>
 	<description>username to use against metastore database</description>
 	</property>
-
+	
 	<property>
 	<name>javax.jdo.option.ConnectionPassword</name>
 	<value>root</value>
@@ -824,7 +842,7 @@ bin/flume-ng agent -c conf -f conf/avro-logger.conf -n a1
 		注:在web服务器根目录运行
 		或者启动到后台
 		nohup  bin/azkaban-web-start.sh  1>/tmp/azstd.out  2>/tmp/azerr.out &
-
+	
 		bin/azkaban-executor-start.sh
 	2.2案例1--init
 		#command.job
@@ -835,7 +853,7 @@ bin/flume-ng agent -c conf -f conf/avro-logger.conf -n a1
 		# foo.job
 		type=command
 		command=echo foo
-
+	
 		# bar.job
 		type=command
 		dependencies=foo
@@ -856,7 +874,7 @@ bin/flume-ng agent -c conf -f conf/avro-logger.conf -n a1
 		# hivef.job
 		type=command
 		command=/root/apps/hive/bin/hive -f 'test.sql'
-
+	
 		use default;
 		drop table aztest;
 		create table aztest(id int,name string) row format delimited fields terminated by ',';
@@ -893,7 +911,7 @@ bin/flume-ng agent -c conf -f conf/avro-logger.conf -n a1
 			bin/sqoop import --connect jdbc:mysql://we01:3306/azkaban --username root --password root --table t_stu --hive-import --m 1
 		1.4.1默认导出位置
 			/user/hive/warehouse/t_stu/part-m-00000
-
+	
 	1.5条件选择导入到hdfs
 			bin/sqoop import \
 			--connect jdbc:mysql://we01:3306/azkaban \
@@ -922,10 +940,10 @@ bin/flume-ng agent -c conf -f conf/avro-logger.conf -n a1
 			--incremental append \
 			--check-column id \
 			--last-value 4
-
+	
 		1.7.1导入位置：
 			/user/root/t_stu
-
+	
 	1.8导出
 		CREATE TABLE employee ( 
 		   id INT NOT NULL PRIMARY KEY, 
@@ -933,7 +951,7 @@ bin/flume-ng agent -c conf -f conf/avro-logger.conf -n a1
 		   deg VARCHAR(20),
 		   salary INT,
 		   dept VARCHAR(10));
-
+	
 		 1201,gopal,manager,50000,TP
 		 1202,manisha,preader,50000,TP
 		 1203,kalil,phpdev,30000,AC
@@ -1018,34 +1036,34 @@ fedaration搭建
 
 	#hadoop2.0的配置文件全部在$HADOOP_HOME/etc/hadoop下
 	cd /root/apps/hadoop-2.6.4/etc/hadoop
-
+	
 	2.2.1修改hadoop-env.sh
 		export JAVA_HOME=/root/apps/jdk1.7.0_55	
 	2.2.2修改core-site.xml
 		<!-- Put site-specific property overrides in this file. -->
 		<configuration>
-
+	
 		<property>
 		<name>fs.defaultFS</name>
 		<value>viewfs:///</value>
 		</property>
-
+	
 		<property>
 		<name>fs.viewfs.mounttable.default.link./bi</name>
 		<value>hdfs://bi/</value>
 		</property>
-
+	
 		<property>
 		<name>fs.viewfs.mounttable.default.link./dt</name>
 		<value>hdfs://dt/</value>
 		</property>
-
+	
 		<!-- 指定hadoop临时目录 -->
 		<property>
 		<name>hadoop.tmp.dir</name>
 		<value>/root/hdpdata/</value>
 		</property>
-
+	
 		<!-- 指定zookeeper地址 -->
 		<property>
 		<name>ha.zookeeper.quorum</name>
@@ -1054,7 +1072,7 @@ fedaration搭建
 		</configuration>
 	2.2.2修改hdfs-site.xml(we01、we02)
 		<!-- Put site-specific property overrides in this file. -->
-
+	
 		<configuration>
 		<!--指定hdfs的nameservice为bi，需要和core-site.xml中的保持一致 -->
 		<property>
@@ -1066,12 +1084,12 @@ fedaration搭建
 		<name>dfs.ha.namenodes.bi</name>
 		<value>nn1,nn2</value>
 		</property>
-
+	
 		<property>
 		<name>dfs.ha.namenodes.dt</name>
 		<value>nn3,nn4</value>
 		</property>
-
+	
 		<!-- bi的RPC通信地址 -->
 		<property>
 		<name>dfs.namenode.rpc-address.bi.nn1</name>
@@ -1092,7 +1110,7 @@ fedaration搭建
 		<name>dfs.namenode.http-address.bi.nn2</name>
 		<value>we02:50070</value>
 		</property>
-
+	
 		<!-- dt的RPC通信地址 -->
 		<property>
 		<name>dfs.namenode.rpc-address.dt.nn3</name>
@@ -1117,7 +1135,7 @@ fedaration搭建
 
 		<!-- 指定NameNode的edits元数据在JournalNode上的存放位置 -->
 		<!--一下property项的配置，不能都配 -->
-
+	
 		<!--  在bi名称空间的两个namenode中用如下配置  -->
 		<property>
 		<name>dfs.namenode.shared.edits.dir</name>
@@ -1142,12 +1160,12 @@ fedaration搭建
 		<name>dfs.client.failover.proxy.provider.bi</name>
 		<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
 		</property>
-
+	
 		<property>
 		<name>dfs.client.failover.proxy.provider.dt</name>
 		<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
 		</property>
-
+	
 		<!-- 配置隔离机制方法，多个机制用换行分割，即每个机制暂用一行-->
 		<property>
 		<name>dfs.ha.fencing.methods</name>
@@ -1167,10 +1185,10 @@ fedaration搭建
 		<value>30000</value>
 		</property>
 		</configuration>
-
+	
 		修改hdfs-site.xml(we03、we04)
 		<!-- Put site-specific property overrides in this file. -->
-
+	
 		<configuration>
 		<!--指定hdfs的nameservice为bi，需要和core-site.xml中的保持一致 -->
 		<property>
@@ -1182,12 +1200,12 @@ fedaration搭建
 		<name>dfs.ha.namenodes.bi</name>
 		<value>nn1,nn2</value>
 		</property>
-
+	
 		<property>
 		<name>dfs.ha.namenodes.dt</name>
 		<value>nn3,nn4</value>
 		</property>
-
+	
 		<!-- bi的RPC通信地址 -->
 		<property>
 		<name>dfs.namenode.rpc-address.bi.nn1</name>
@@ -1208,7 +1226,7 @@ fedaration搭建
 		<name>dfs.namenode.http-address.bi.nn2</name>
 		<value>we02:50070</value>
 		</property>
-
+	
 		<!-- dt的RPC通信地址 -->
 		<property>
 		<name>dfs.namenode.rpc-address.dt.nn3</name>
@@ -1233,7 +1251,7 @@ fedaration搭建
 
 		<!-- 指定NameNode的edits元数据在JournalNode上的存放位置 -->
 		<!--一下property项的配置，不能都配 -->
-
+	
 		<!--  在dt名称空间的两个namenode中，用如下配置-->
 		<property>
 		<name>dfs.namenode.shared.edits.dir</name>
@@ -1258,12 +1276,12 @@ fedaration搭建
 		<name>dfs.client.failover.proxy.provider.bi</name>
 		<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
 		</property>
-
+	
 		<property>
 		<name>dfs.client.failover.proxy.provider.dt</name>
 		<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
 		</property>
-
+	
 		<!-- 配置隔离机制方法，多个机制用换行分割，即每个机制暂用一行-->
 		<property>
 		<name>dfs.ha.fencing.methods</name>
@@ -1293,7 +1311,7 @@ fedaration搭建
 	</configuration>
 	2.2.4修改yarn-site.xml
 	<configuration>
-
+	
 	<!-- Site specific YARN configuration properties -->
 	<!-- 开启RM高可用 -->
 	<property>
@@ -1340,7 +1358,7 @@ fedaration搭建
 	we04---01 02 03 04 05 06 07
 	2.3
 		将配置好的hadoop拷贝到其他节点
-
+	
 	2.4开始启动
 	=============================================================
 	2.5启动zookeeper集群（分别在we02、we03、we04上启动zk）
@@ -1350,27 +1368,27 @@ fedaration搭建
 		./zkServer.sh status
 		或者用脚本启动startzk.sh
 	=============================================================
-
+	
 	2.6启动journalnode（分别在在we02、we03、we04上执行）
 		cd /hadoop/hadoop-2.6.4
 		sbin/hadoop-daemon.sh start journalnode
 		#运行jps命令检验，we02、we03、we04上多了JournalNode进程
 	=============================================================
-
+	
 	=============================================================
-
+	
 	2.7格式化HDFS(手敲，不然容易出毛病)
 		在bi下nn1上  
 		hdfs namenode -format –clusterID itcast  (CID-2577fdbf-ab72-4c85-a784-69688196cb16)
 		hdfs zkfc -formatZK
 		拷贝元数据目录到standby(nn2)
-
+	
 		在dt下nn3上  
 		hdfs namenode -format –clusterID itcast   ###clusterID必须与bi的相同
 		hdfs zkfc -formatZK
 		拷贝元数据目录到standby(nn4)
 	=============================================================
-
+	
 	2.8启动HDFS(we01)
 	=============================================================
 		start-dfs.sh
@@ -1426,9 +1444,9 @@ fedaration搭建
 		</property>
 		</configuration>
 	3.4 core-site.xml hdfs-site.xml加到conf下
-
+	
 	3.5 启动命令：bin/start-hbase.sh
-
+	
 	3.6 启动多个主节点(slaves机器上 比如we05)
 		local-master-backup.sh start 2
 		启动一个从节点
@@ -1580,12 +1598,12 @@ flume+kafka
 		a1.sources.r1.type = exec
 		a1.sources.r1.command = tail -F /root/logs/1.log
 		a1.sources.r1.channels = c1
-
+	
 		# Use a channel which buffers events in memory
 		a1.channels.c1.type = memory
 		a1.channels.c1.capacity = 10000
 		a1.channels.c1.transactionCapacity = 100
-
+	
 		# Bind the source and sink to the channel
 		a1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink
 		a1.sinks.k1.topic = orderMq
@@ -1604,7 +1622,7 @@ flume+kafka
 	for((i=0;i<=50000;i++));
 	do echo "message-"+$i >>/root/logs/1.log;
 	done
-
+	
 	启动storm:
 		nohup storm nimbus &
 		nohup storm ui &
@@ -1614,15 +1632,15 @@ flume+kafka
 =====================================================================================
 	使用yum安装gcc
 	对于配备了yum的Linux发行版而言，安装gcc编译器就变得so easy。我们只需要分别执行如下命令即可：
-
+	
 	#root账户下，安装gcc、c++编译器以及内核文件
 	su rootyum -y install gcc gcc-c++ kernel-devel
-
+	
 	make MALLOC=libc
 =====================================================================================
 
 	Redis下载、编译、安装
-
+	
 	下载redis3.0.5
 		wget http://download.redis.io/releases/redis-3.0.5.tar.gz
 	解压文件，并创建软件连接
@@ -1632,7 +1650,7 @@ flume+kafka
 		cd /export/servers/redis 
 		make（先安装gcc）
 	将编译后的可执行文件安装到/user/local/redis
-
+	
 	安装:
 		make install
 		make PREFIX=/usr/local/redis
@@ -1653,7 +1671,7 @@ flume+kafka
 		export JAVA_HOME=/usr/local/jdk1.7.0_45
 		export SPARK_MASTER_IP=storm01
 		export SPARK_MASTER_PORT=7077
-
+	
 	保存退出
 	重命名并修改slaves.template文件
 	mv slaves.template slaves
@@ -1665,12 +1683,12 @@ flume+kafka
 	scp -r spark-1.5.2-bin-hadoop2.6/ node2.itcast.cn:/usr/local/
 	scp -r spark-1.5.2-bin-hadoop2.6/ node3.itcast.cn:/usr/local/
 	scp -r spark-1.5.2-bin-hadoop2.6/ node4.itcast.cn:/usr/local/
-
+	
 	Spark集群配置完毕，目前是1个Master，3个Work，在storm01上启动Spark集群
 	/usr/local/spark-1.5.2-bin-hadoop2.6/sbin/start-all.sh
 	ui界面
 	http://storm01:8080/
-
+	
 	单独启动linux spark-shell窗口
 	spark-shell --driver-class-path /root/apps/hive/lib/mysql-connector-java-5.1.28.jar
 
@@ -1679,7 +1697,7 @@ flume+kafka
 	spark-shell --master spark://storm01:7077 --total-executor-cores 4 --executor-memory 4g
 	该算法是利用蒙特·卡罗算法求PI
 	bin/spark-submit --class org.apache.spark.examples.SparkPi  --master spark://storm01:7077 /root/apps/spark-1.6.1-bin-hadoop2.6/lib/spark-examples-1.6.1-hadoop2.6.0.jar 100
-
+	
 	/usr/local/spark-1.5.2-bin-hadoop2.6/bin/spark-submit \
 	--class org.apache.spark.examples.SparkPi \
 	--master spark://storm01:7077 \
@@ -1690,7 +1708,7 @@ flume+kafka
 
 
 	sc.textFile("hdfs://storm01:9000/data").flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).sortBy(_._2,false).collect
-
+	
 	sc.textFile("hdfs://storm01:9000/data").flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).sortBy(_._2,false).saveAsTextFile("hdfs://storm01:9000/out")
 
 
@@ -1707,11 +1725,11 @@ val list4 = list.flatMap(_.split(" ")).map((_,1)).groupBy(_._1).mapValues(_.fold
 	rdd3.groupByKey
 	rdd3.groupByKey.map(x=>(x._1,x._2.sum))
 	rdd3.groupByKey.mapValues(_.sum)
-
+	
 	#WordCount, 第二个效率低
 	sc.textFile("/root/words.txt").flatMap(x=>x.split(" ")).map((_,1)).reduceByKey(_+_).sortBy(_._2,false).collect
 	sc.textFile("/root/words.txt").flatMap(x=>x.split(" ")).map((_,1)).groupByKey.map(t=>(t._1, t._2.sum)).collect
-
+	
 	:r! echo
 
 
