@@ -9,5 +9,5 @@
 * 回到最后一次编辑处                              ctrl + k + q(改为ctrl+q)
 * 切换不同视图                                  ctrl + q 
 * 选中所有相同单词                              Ctrl + Shift + L
-k
+* 格式化代码                                         alt+shift+F
 
