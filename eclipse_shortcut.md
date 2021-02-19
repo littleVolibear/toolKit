@@ -1,1 +1,16 @@
-1、添加断点:ctrl+shift+b
+* 添加断点:ctrl+shift+b
+* 查找下一个：ctrl+K
+* 查找上一个：ctrl+shift+k
+* 反撤销：ctrl+y
+* 导包：ctrl+shift+o
+* 查找文件：ctrl+shift+r
+* 查找方法：ctrl+o
+* 跳到最后一次编辑位置：ctrl+q
+* 抽取方法：alt+shift+m
+* 抽取变量：alt+shift+l
+* 重命名：alt+shift+r
+* 显示最近文件列表：ctlr+e
+* 关闭所有标签：Ctrl+Shift+F4
+* 大写：Ctrl+Shift+X
+* 小写:Ctrl+Shift+Y
+* 格式化:Ctrl+Shift+F 
