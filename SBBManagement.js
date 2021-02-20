@@ -1882,25 +1882,27 @@ Ext.define('Ext.sbb.manage.SBBManagement', {
 						text : 'Download Element Links',
 						iconCls : 'icon-menu-node',
 						/*disabled : Ext.LOIS
-								.isEnable('sbb_view_inloadsheet'),*/
-						id : 'sbb_view_inloadsheet',
-						handler : function(){
+								.isEnable('download_elementlink_sheet'),*/
+						id : 'download_elementlink_sheet',
+						handler : function() {
 							me.setRecordIds();
 							if (me.recordIds == "") {
 								Ext.Msg.alert('empty',
 										'please select some items.');
 							} else {
 								selectedIds = me.recordIds;
-								ctoViewLinksSearchPanel = new Ext.Window({
-									title : 'Search Critiera',
-									width : 900,
-									height : 500,
+								enhanceWinPanel = new Ext.Window({
+									title : 'Download Element Links',
+									width : 1000,
+									height : 700,
 									constrain : true,
 									modal : true,
 									closable : true,
-									html : ' <iframe scrolling="no" frameborder="0" align="center" width="100%" height="100%" src="../element/viewLinksSearch2.html?"> </iframe>'//' + allCTONumbers + '&' + objType + '&' + idList +'
+									items : [],
+									html : '  <iframe scrolling="no" frameborder="0" align="center" width="100%" height="100%" src="../element/ElementLinkNew2.html?objectType=sbb"> </iframe>',
+									buttons : []
 								});
-								ctoViewLinksSearchPanel.show();
+								enhanceWinPanel.show();
 							}
 						}
 					}
