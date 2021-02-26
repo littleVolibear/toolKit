@@ -146,8 +146,6 @@ var customTbar = [
 			});
 			downloadForm.getForm().standardSubmit = true;
 			
-			console.log("typeKeys11:=====" + typeKeys);
-			console.log("exportData22:=====" + exportData);
 			downloadForm.getForm().submit({
 				params : {
 					idList : idList,
@@ -290,8 +288,8 @@ Ext.elementViewGrid = function elementViewFn(){
 							allCTONumbers.push(newSingleObjectNumber);
 							allCTONumAndDesc.push(newSingleObjectNumber+'['+newSingleObjectName+']');
 						}
-						console.log("newSingleObjectNumber:================" + newSingleObjectNumber);
-						console.log("newSingleObjectName:==================" + newSingleObjectName);
+						/*console.log("newSingleObjectNumber:================" + newSingleObjectNumber);
+						console.log("newSingleObjectName:==================" + newSingleObjectName);*/
 //						customColumns.push({text : newSingleObjectNumber+'['+newSingleObjectName+']',flex : 1,id : newSingleObjectNumber,dataIndex : newSingleObjectNumber,name : newSingleObjectNumber});
 //						customFields.push(newSingleObjectNumber);
 					}
@@ -302,18 +300,19 @@ Ext.elementViewGrid = function elementViewFn(){
 
 					var store;
 					var grid;
+					var searchstore;// 页面只展示search查找的新元素(confirm) --element列表
 
 					Ext.regModel('elelinkui',
 							{
 								fields: customFields
 							});
-					store = new Ext.data.JsonStore({
+					/*store = new Ext.data.JsonStore({
 						model: 'elelinkui',
 						pageSize: 100,
-
 						proxy: {
 							type: 'ajax',
 							url: '../element/elementLink!findElementsByObjectIdsNew.action',
+							timeout : 1800000,
 							actionMethods: {
 			                    read: 'POST' 
 			                },
@@ -347,20 +346,67 @@ Ext.elementViewGrid = function elementViewFn(){
 								typeKeys.push(record.get('eleType'));
 								//alert(record.get('eleName'));
 								exportData.push(record.get('eleId'));
+								console.log("eleType:===" + record.get('eleType'));
+								console.log("eleId:===" + record.get('eleId'));
+								
+							});
+						}
+						});*/
+					console.log("typekeys:===" + typeKeys);
+					console.log("exportData:===" + exportData);
+					// add 页面只展示search查找的新元素(confirm) --element列表
+					searchstore = new Ext.data.JsonStore({
+						model: 'elelinkui',
+						pageSize: 100,
+
+						proxy: {
+							type: 'ajax',
+							url: '../element/elementLink!findElementsByObjectIdsNew2.action',
+							actionMethods: {
+			                    read: 'POST' 
+			                },
+							reader: {
+								type: 'json',
+								root: 'results',
+								totalProperty: 'totalCount'
+							}
+						}
+					});
+					Ext.apply(searchstore.proxy.extraParams,
+							{ ids: idList,customFields : customFields, searchResults : searchResults,objectType : type});
+					searchstore.load({ 
+						params: 
+							{ 
+							ids: idList,
+							customFields : customFields, 
+							searchResults : searchResults,
+							objectType : type
+							} 
+					});
+					searchstore.load({
+						scope : this,
+						callback: function(records, operation, success) {
+							searchstore.each(function(record) {
+								typeKeys.push(record.get('eleType'));
+								exportData.push(record.get('eleId'));
+								console.log("eleType:===" + record.get('eleType'));
+								console.log("eleId:===" + record.get('eleId'));
+								
 							});
 						}
 						});
+					// end
 					
 					grid = new Ext.grid.GridPanel({
 						autoHeight: true,
-						store: store,
+						store: searchstore,// 只展示查找的element element太多，解决element太多，页面渲染异常问题
 						columnLines: true,
 						columns: customColumns,
 						
 						tbar: customTbar,
 						bbar: Ext.create('App.PagingToolbar', {
 							pageSize: 20,
-							store: store,
+							store: searchstore,// 只展示查找的element element太多，解决element太多，页面渲染异常问题
 							displayInfo: true
 						})
 					});
@@ -371,11 +417,11 @@ Ext.elementViewGrid = function elementViewFn(){
 						layout: 'fit',
 						items: [grid]
 					});
-					console.log("reload:" + fieldsValue)
+//					console.log("reload:" + fieldsValue)
 
 				}
 			});
-			console.log("in onready:" + fieldsValue);
+//			console.log("in onready:" + fieldsValue);
 		}
 	}
 }();
