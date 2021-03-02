@@ -1,0 +1,35 @@
+<update id="updateCmPriority">
+       		UPDATE t_cm_flatten_queue q SET priority = '5' from  t_basic_offering o 
+			where q.flatten_object=o.pn and  o.status ='RFR'
+			and o.product_type in ('WC NP','WC FP') 
+       </update>
+
+
+
+       再看看 sbb 修改后会触发MTM 下发吗？
+
+
+
+
+
+http://loispre.lenovo.com/lenovo-lois-web/element/elementinstance!updateElementAttribute.action
+
+
+http://loispre.lenovo.com/lenovo-lois-web/offering/attribute!updateDynamicEditData.action
+
+
+
+manually trigger flatten
+
+http://loispre.lenovo.com/lenovo-lois-web/cm/flattenQueue!saveFlattenQueue.action
+
+numbers=00EV384&flattenQueue.fileType=offering&flattenQueue.priority=5&flattenQueue.withdrawCheck=false&flattenQueue.ignoreoseStatusCheck=false
+
+
+http://loispre.lenovo.com/lenovo-lois-web/offering/attribute!updateDynamicEditData.action
+
+
+236  FlattenTempTabelTurnFlattenQueueJob  FlattenElementServiceAction
+npi_mp_lt
+
+
