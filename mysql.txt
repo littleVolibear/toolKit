@@ -1,0 +1,16 @@
+
+-- Header_Number 
+-- Component_Item_Number  S948C16729
+-- Item_Status
+-- Component_Quantity
+-- Planned_Delivery_Time
+
+-- 1.item_code 
+-- 2.material
+select Header_Number,Component_Item_Number,t.Component_Quantity from wcmbomlatest t where t.Header_Number = 'PABL0003CN';
+
+
+select t.Item_Status,t.Usage_Code,t.* from wcitemlatest t where t.Item_Number = 'S948C16729';
+
+
+select t.Planned_Delivery_Time,t.* from wcmep t where t.Item_Number = 'S948C16729';
