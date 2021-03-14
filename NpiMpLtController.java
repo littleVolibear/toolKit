@@ -255,6 +255,10 @@ public class NpiMpLtController {
         InputStream inputStream = file.getInputStream();
         List<List<Object>> list = getExcelContent(inputStream, file.getOriginalFilename());
         inputStream.close();
+        ArrayList<Map<String,Object>> resultList = new ArrayList<>();
+        HashMap<String, Object> defaultResultMap = Maps.newHashMap();
+//        defaultResultMap.put("result", "success");
+//        defaultResultMap.put("message", "");
         for (int i = 0; i < list.size(); i++) {
             List<Object> lo = list.get(i);
             List<String> result = new ArrayList<>();
@@ -263,13 +267,38 @@ public class NpiMpLtController {
                     result.add(String.class.cast(o));
                 }
             }
-            NpiMpLt npiMpLt = new NpiMpLt();
-            npiMpLt.setMaterial(result.get(0));
-            npiMpLt.setNpiLt(result.get(1));
-            npiMpLt.setMpLt(result.get(2));
-            npiMpLtMapper.insert(npiMpLt);
+            if(StringUtils.isBlank(result.get(0)) ||StringUtils.isBlank(result.get(1)) || StringUtils.isBlank(result.get(2))){
+                String message = "all data in line " + (i + 2) + " must not empty";
+                defaultResultMap.put("result", "failed");
+                defaultResultMap.put("message", message);
+                resultList.add(defaultResultMap);
+            }else{
+                NpiMpLtExample npiMpLtExample = new NpiMpLtExample();
+                NpiMpLtExample.Criteria c = npiMpLtExample.createCriteria();
+                c.andMaterialEqualTo(result.get(0));
+                List<NpiMpLt> npiMpLtList = npiMpLtMapper.selectByExample(npiMpLtExample);
+                if(CollectionUtils.isEmpty(npiMpLtList)){
+                    NpiMpLt npiMpLt = new NpiMpLt();
+                    npiMpLt.setMaterial(result.get(0));
+                    npiMpLt.setNpiLt(result.get(1));
+                    npiMpLt.setMpLt(result.get(2));
+                    npiMpLtMapper.insert(npiMpLt);
+                }else{
+                    NpiMpLt npiMpLt = npiMpLtList.get(0);
+//                    npiMpLt.setMaterial(result.get(0));
+                    npiMpLt.setNpiLt(result.get(1));
+                    npiMpLt.setMpLt(result.get(2));
+                    npiMpLtMapper.updateByExampleSelective(npiMpLt, npiMpLtExample);
+                }
+            }
         }
-        return "{\"result\":\"上传成功\"}";
+        if(CollectionUtils.isEmpty(resultList)){
+            defaultResultMap.put("result", "success");
+            defaultResultMap.put("message", "");
+            resultList.add(defaultResultMap);
+        }
+//        return "{\"result\":\"上传成功\"}";
+        return JSON.toJSONString(resultList);
     }
 
 
