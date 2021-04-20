@@ -1,37 +1,20 @@
-package com.lenovo.sob.sci.controller;
+package com.lenovo.mbg.portal.integration.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.lenovo.gsc.tech.framework.model.Message;
-import com.lenovo.sob.commons.controller.SobBaseController;
-import com.lenovo.sob.sci.dto.MaterialCheckDTO;
-import com.lenovo.sob.sci.service.ScMbgBomFactCmlService;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/costbom/scMbgBomFactCml")
-public class ScMbgBomFactCmlController extends SobBaseController {
-    @Autowired
-    private ScMbgBomFactCmlService scMbgBomFactCmlService;
+public class ScMbgBomFactCmlController {
 
-    @PostMapping("/materialCheck")
-    public Message<List<String>> scMaterialCheck(@Validated @RequestBody MaterialCheckDTO materialCheckDTO) {
-        return sendSuccessMessage(scMbgBomFactCmlService.scMaterialCheck(materialCheckDTO));
-    }
 
     public static void main(String[] args) {
         //  Adapter-AdapterPin,Adapter-AdapterColor
@@ -52,6 +35,7 @@ public class ScMbgBomFactCmlController extends SobBaseController {
         map2.put("Item Name", "");
         map2.put("id", "67");
 
+
         HashMap<String, String> map3 = Maps.newHashMap();
         map3.put("Status", "Released3");
         map3.put("AdapterNB|DT|Share", "NB3");
@@ -63,7 +47,6 @@ public class ScMbgBomFactCmlController extends SobBaseController {
         dataList.add(map2);
         dataList.add(map3);
 
-        List<Map<String, String>> result = new ArrayList<Map<String, String>>();
         LinkedHashMap<String, List<String>> needSplitMap = Maps.newLinkedHashMap();
 
         ArrayList<String> ruleList = Lists.newArrayList("Adapter-AdapterPin", "Adapter-AdapterColor");
@@ -136,7 +119,52 @@ public class ScMbgBomFactCmlController extends SobBaseController {
                 }
             });
         });
-        System.out.println(JSON.toJSON(finalMap));
+//        System.out.println(JSON.toJSON(finalMap));
+        //HashMap<String, List<Map<String, String>>> finalMap = Maps.newHashMap();
+        HashMap<String, List<Map<String, String>>> M1Map = Maps.newHashMap();
+        finalMap.entrySet().stream().forEach(map->{
+            String itemId = map.getKey();
+            List<Map<String, String>> attributeSumList = map.getValue();
+
+            List<Map<String, String>> listEle = dataList.stream().filter(ele -> ele.get("id").equals(itemId)).collect(Collectors.toList());
+            Map<String, String> oldMap = listEle.get(0);
+            attributeSumList.stream().forEach(attributeMap->{
+                ArrayList<Map<String, String>> itemList = Lists.newArrayList();
+                HashMap<String, String> newResultMap = Maps.newHashMap(oldMap);
+                newResultMap.putAll(attributeMap);
+                itemList.add(newResultMap);
+                if(M1Map.containsKey(itemId)){
+                    M1Map.get(itemId).addAll(itemList);
+                }else{
+                    M1Map.put(itemId, itemList);
+                }
+            });
+        });
+        System.out.println(JSON.toJSON(M1Map));
+        List<Map<String, String>> sumList = Lists.newArrayList();
+        M1Map.entrySet().stream().forEach(map->{
+            List<Map<String, String>> value = map.getValue();
+            sumList.addAll(value);
+        });
+//        System.out.println(JSON.toJSON(sumList));
+
+        //List<Map<String, String>> dataList = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> noCombimemapList = dataList.stream().filter(map -> !containTwoValueOfItemId.contains(map.get("id"))).collect(Collectors.toList());
+        sumList.addAll(noCombimemapList);
+        System.out.println(JSON.toJSON(sumList));
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //        ArrayList<String> list1 = Lists.newArrayList("titile1", "title2");//attributeList
 //        ArrayList<String> list2 = Lists.newArrayList("data1", "data2");//eleList
@@ -151,29 +179,29 @@ public class ScMbgBomFactCmlController extends SobBaseController {
         //{"66":[{"66###AdapterColor":["Black","White"]},{"66###AdapterPin":["pin1","pin2"]}],"67":[{"67###AdapterColor":["Black","White"]}]}
 
 
-        List<List<String>> list = new ArrayList<List<String>>();
-        List<String> listSub1 = new ArrayList<String>();
-        List<String> listSub2 = new ArrayList<String>();
-        List<String> listSub3 = new ArrayList<String>();
-        List<String> listSub4 = new ArrayList<String>();
-        listSub1.add("1");
-        listSub1.add("2");
-
-        listSub2.add("3");
-        listSub2.add("4");
-
-        listSub3.add("a");
-        listSub3.add("b");
-
-        listSub4.add("uu");
-        listSub4.add("gg");
-
-        list.add(listSub1);
-        list.add(listSub2);
-        list.add(listSub3);
-        list.add(listSub4);
-        List<List<String>> result2 = new ArrayList<List<String>>();
-        descartes(list, result2, 0, new ArrayList<String>());
+//        List<List<String>> list = new ArrayList<List<String>>();
+//        List<String> listSub1 = new ArrayList<String>();
+//        List<String> listSub2 = new ArrayList<String>();
+//        List<String> listSub3 = new ArrayList<String>();
+//        List<String> listSub4 = new ArrayList<String>();
+//        listSub1.add("1");
+//        listSub1.add("2");
+//
+//        listSub2.add("3");
+//        listSub2.add("4");
+//
+//        listSub3.add("a");
+//        listSub3.add("b");
+//
+//        listSub4.add("uu");
+//        listSub4.add("gg");
+//
+//        list.add(listSub1);
+//        list.add(listSub2);
+//        list.add(listSub3);
+//        list.add(listSub4);
+//        List<List<String>> result2 = new ArrayList<List<String>>();
+//        descartes(list, result2, 0, new ArrayList<String>());
 //        System.out.println(JSON.toJSONString(result2));
 //        System.out.println("length:===" + result2.size());
 
